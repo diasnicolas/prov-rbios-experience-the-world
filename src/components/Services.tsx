@@ -1,16 +1,41 @@
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
-import { Plane, Hotel, Ship, Globe, Umbrella, CreditCard } from 'lucide-react';
+import { Plane, Hotel, Ticket, Bus, ShieldCheck, Car, MapPin, Ship, Package } from 'lucide-react';
 
 const services = [
   {
     icon: Plane,
-    title: 'Passagens Aéreas',
-    desc: 'Emissão de passagens nacionais e internacionais com pesquisa inteligente de rotas e tarifas para você economizar sem abrir mão do conforto.',
+    title: 'Passagens',
+    desc: 'Emissão de passagens aéreas nacionais e internacionais com pesquisa inteligente de rotas e tarifas para você economizar sem abrir mão do conforto.',
   },
   {
     icon: Hotel,
-    title: 'Hospedagem',
+    title: 'Hospedagens',
     desc: 'Seleção de hotéis, resorts e pousadas de confiança, de acordo com seu estilo de viagem, localização desejada e melhor custo-benefício.',
+  },
+  {
+    icon: Ticket,
+    title: 'Ingressos',
+    desc: 'Ingressos para atrações turísticas, parques, shows e eventos nos principais destinos, garantindo sua entrada sem filas e com antecedência.',
+  },
+  {
+    icon: Bus,
+    title: 'Transporte',
+    desc: 'Transfers, traslados e soluções de transporte no destino para que você se desloque com segurança e praticidade durante toda a viagem.',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Seguro',
+    desc: 'Proteção essencial para sua viagem, com coberturas adequadas ao destino e suporte para imprevistos de saúde, bagagem e deslocamento.',
+  },
+  {
+    icon: Car,
+    title: 'Aluguel de Carros',
+    desc: 'Locação de veículos nos melhores destinos, com opções para todos os perfis e condições especiais para você explorar cada lugar no seu ritmo.',
+  },
+  {
+    icon: MapPin,
+    title: 'Excursões',
+    desc: 'Passeios guiados e excursões em grupo ou privadas, com roteiros cuidadosamente selecionados para você aproveitar o melhor de cada destino.',
   },
   {
     icon: Ship,
@@ -18,19 +43,9 @@ const services = [
     desc: 'Opções de cruzeiros em destinos incríveis, com orientação completa sobre cabines, roteiro, documentação e tudo o que você precisa saber.',
   },
   {
-    icon: Globe,
-    title: 'Pacotes de Viagem',
+    icon: Package,
+    title: 'Pacotes Completos',
     desc: 'Montamos pacotes completos, nacionais e internacionais, com roteiro personalizado para você viajar com praticidade e tranquilidade.',
-  },
-  {
-    icon: Umbrella,
-    title: 'Seguro Viagem',
-    desc: 'Proteção essencial para sua viagem, com coberturas adequadas ao destino e suporte para imprevistos de saúde, bagagem e deslocamento.',
-  },
-  {
-    icon: CreditCard,
-    title: 'Parcelamento Facilitado',
-    desc: 'Condições de pagamento flexíveis e acessíveis para você planejar com calma e realizar a viagem dos sonhos no momento certo.',
   },
 ];
 
