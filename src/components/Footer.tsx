@@ -1,5 +1,5 @@
 import logo from '@/assets/logo.png';
-import { Instagram, Facebook, Phone } from 'lucide-react';
+import { Instagram, Phone } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -33,15 +33,6 @@ export default function Footer() {
               aria-label="Instagram"
             >
               <Instagram size={18} />
-            </a>
-            <a
-              href="https://facebook.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors active:scale-95"
-              aria-label="Facebook"
-            >
-              <Facebook size={18} />
             </a>
           </div>
 

@@ -1,5 +1,5 @@
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
-import sobre1 from '@/assets/sobre_1.jpeg';
+import sobre1 from '@/assets/sobre_1.jpg';
 import sobre2 from '@/assets/sobre_2.jpg';
 
 export default function About() {

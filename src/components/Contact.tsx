@@ -3,7 +3,7 @@ import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { MessageCircle, Instagram, Facebook, Phone } from 'lucide-react';
+import { MessageCircle, Instagram, Phone } from 'lucide-react';
 
 const WHATSAPP_NUMBER = '5511915103864';
 
@@ -54,15 +54,6 @@ export default function Contact() {
                 aria-label="Instagram"
               >
                 <Instagram size={20} />
-              </a>
-              <a
-                href="https://facebook.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-all active:scale-95"
-                aria-label="Facebook"
-              >
-                <Facebook size={20} />
               </a>
             </div>
           </div>
