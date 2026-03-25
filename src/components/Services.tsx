@@ -2,12 +2,36 @@ import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 import { Plane, Hotel, Ship, Globe, Umbrella, CreditCard } from 'lucide-react';
 
 const services = [
-  { icon: Plane, title: 'Passagens Aéreas', desc: 'Nacionais e internacionais com as melhores tarifas.' },
-  { icon: Hotel, title: 'Hospedagem', desc: 'Hotéis, resorts e pousadas selecionados para cada perfil.' },
-  { icon: Ship, title: 'Cruzeiros', desc: 'Experiências marítimas inesquecíveis pelos melhores destinos.' },
-  { icon: Globe, title: 'Pacotes de Viagem', desc: 'Roteiros completos, nacionais e internacionais.' },
-  { icon: Umbrella, title: 'Seguro Viagem', desc: 'Viaje protegido com coberturas completas.' },
-  { icon: CreditCard, title: 'Parcelamento Facilitado', desc: 'Condições especiais para realizar o seu sonho.' },
+  {
+    icon: Plane,
+    title: 'Passagens Aéreas',
+    desc: 'Emissão de passagens nacionais e internacionais com pesquisa inteligente de rotas e tarifas para você economizar sem abrir mão do conforto.',
+  },
+  {
+    icon: Hotel,
+    title: 'Hospedagem',
+    desc: 'Seleção de hotéis, resorts e pousadas de confiança, de acordo com seu estilo de viagem, localização desejada e melhor custo-benefício.',
+  },
+  {
+    icon: Ship,
+    title: 'Cruzeiros',
+    desc: 'Opções de cruzeiros em destinos incríveis, com orientação completa sobre cabines, roteiro, documentação e tudo o que você precisa saber.',
+  },
+  {
+    icon: Globe,
+    title: 'Pacotes de Viagem',
+    desc: 'Montamos pacotes completos, nacionais e internacionais, com roteiro personalizado para você viajar com praticidade e tranquilidade.',
+  },
+  {
+    icon: Umbrella,
+    title: 'Seguro Viagem',
+    desc: 'Proteção essencial para sua viagem, com coberturas adequadas ao destino e suporte para imprevistos de saúde, bagagem e deslocamento.',
+  },
+  {
+    icon: CreditCard,
+    title: 'Parcelamento Facilitado',
+    desc: 'Condições de pagamento flexíveis e acessíveis para você planejar com calma e realizar a viagem dos sonhos no momento certo.',
+  },
 ];
 
 export default function Services() {

@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { MessageCircle, Instagram, Facebook, Phone } from 'lucide-react';
 
-const WHATSAPP_NUMBER = '5500000000000'; // Substituir pelo número real
+const WHATSAPP_NUMBER = '5511915103864';
 
 export default function Contact() {
   const { ref, isVisible } = useScrollReveal();
@@ -38,7 +38,7 @@ export default function Contact() {
 
             <div className="flex gap-4">
               <a
-                href="https://wa.me/5500000000000"
+                href={`https://wa.me/${WHATSAPP_NUMBER}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 rounded-full bg-forest/10 flex items-center justify-center text-forest hover:bg-forest hover:text-forest-foreground transition-all active:scale-95"
@@ -47,7 +47,7 @@ export default function Contact() {
                 <Phone size={20} />
               </a>
               <a
-                href="https://instagram.com/"
+                href="https://www.instagram.com/proverbiostur"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center text-accent hover:bg-accent hover:text-accent-foreground transition-all active:scale-95"

@@ -1,4 +1,6 @@
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
+import sobre1 from '@/assets/sobre_1.jpeg';
+import sobre2 from '@/assets/sobre_2.jpg';
 
 export default function About() {
   const { ref, isVisible } = useScrollReveal();
@@ -13,16 +15,21 @@ export default function About() {
               isVisible ? 'opacity-100 animate-slide-left' : 'opacity-0'
             }`}
           >
-            {/* Placeholder vertical photos - user will replace */}
             <div className="flex-1 rounded-2xl overflow-hidden shadow-xl bg-muted">
-              <div className="w-full h-full bg-gradient-to-b from-secondary/20 to-primary/10 flex items-center justify-center">
-                <span className="text-muted-foreground text-sm font-medium text-center px-4">Foto 1<br />(substituir)</span>
-              </div>
+              <img
+                src={sobre1}
+                alt="Equipe da Provérbios Turismo em atendimento"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
             </div>
             <div className="flex-1 rounded-2xl overflow-hidden shadow-xl bg-muted mt-12">
-              <div className="w-full h-full bg-gradient-to-b from-primary/10 to-secondary/20 flex items-center justify-center">
-                <span className="text-muted-foreground text-sm font-medium text-center px-4">Foto 2<br />(substituir)</span>
-              </div>
+              <img
+                src={sobre2}
+                alt="Destino de viagem recomendado pela Provérbios Turismo"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
             </div>
           </div>
 

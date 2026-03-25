@@ -32,7 +32,7 @@ export default function Hero() {
         <img
           src={logo}
           alt="Provérbios Turismo"
-          className="h-24 sm:h-32 w-auto mx-auto mb-8 opacity-0 animate-fade-in"
+          className="h-32 sm:h-44 w-auto mx-auto mb-8 opacity-0 animate-fade-in"
           style={{ animationDelay: '0.1s' }}
         />
         <h1

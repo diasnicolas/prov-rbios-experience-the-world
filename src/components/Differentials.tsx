@@ -5,22 +5,22 @@ const items = [
   {
     icon: Heart,
     title: 'Atendimento Humanizado',
-    desc: 'Empatia e atenção aos detalhes em cada etapa da sua viagem.',
+    desc: 'Atendimento próximo, com empatia e cuidado em cada etapa da jornada, do primeiro contato ao seu retorno para casa.',
   },
   {
     icon: Star,
     title: 'Experiências Personalizadas',
-    desc: 'Roteiros sob medida para o perfil e necessidade de cada cliente.',
+    desc: 'Criamos roteiros sob medida, respeitando seu perfil, estilo de viagem, orçamento e objetivos para que tudo faça sentido para você.',
   },
   {
     icon: Shield,
     title: 'Preço Justo e Transparente',
-    desc: 'Opções variadas com o melhor custo-benefício, sem surpresas.',
+    desc: 'Apresentamos opções claras e honestas, com excelente custo-benefício e sem taxas escondidas ou surpresas desagradáveis.',
   },
   {
     icon: Headphones,
     title: 'Suporte Completo',
-    desc: 'Acompanhamento do planejamento até o retorno da viagem.',
+    desc: 'Você conta com suporte contínuo antes, durante e depois da viagem, com orientação rápida sempre que precisar.',
   },
 ];
 

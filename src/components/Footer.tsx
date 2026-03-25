@@ -10,14 +10,14 @@ export default function Footer() {
           <div className="flex flex-col items-center md:items-start gap-3">
             <img src={logo} alt="Provérbios Turismo" className="h-12 w-auto" />
             <p className="text-primary-foreground/50 text-xs">
-              CNPJ: 00.000.000/0000-00
+              CNPJ: 14.001.337/0001-28
             </p>
           </div>
 
           {/* Social */}
           <div className="flex gap-3">
             <a
-              href="https://wa.me/5500000000000"
+              href="https://wa.me/5511915103864"
               target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors active:scale-95"
@@ -26,7 +26,7 @@ export default function Footer() {
               <Phone size={18} />
             </a>
             <a
-              href="https://instagram.com/"
+              href="https://www.instagram.com/proverbiostur"
               target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors active:scale-95"
