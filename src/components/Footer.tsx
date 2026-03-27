@@ -1,4 +1,5 @@
 import logo from '@/assets/logo.png';
+import logoCadastur from '@/assets/logoCadastur.png';
 import { Instagram, Phone } from 'lucide-react';
 
 export default function Footer() {
@@ -15,25 +16,28 @@ export default function Footer() {
           </div>
 
           {/* Social */}
-          <div className="flex gap-3">
-            <a
-              href="https://wa.me/5511915103864"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors active:scale-95"
-              aria-label="WhatsApp"
-            >
-              <Phone size={18} />
-            </a>
-            <a
-              href="https://www.instagram.com/proverbiostur"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors active:scale-95"
-              aria-label="Instagram"
-            >
-              <Instagram size={18} />
-            </a>
+          <div className="flex flex-col items-center gap-3">
+            <img src={logoCadastur} alt="Cadastur" className="h-10 w-auto" />
+            <div className="flex gap-3">
+              <a
+                href="https://wa.me/5511915103864"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors active:scale-95"
+                aria-label="WhatsApp"
+              >
+                <Phone size={18} />
+              </a>
+              <a
+                href="https://www.instagram.com/proverbiostur"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors active:scale-95"
+                aria-label="Instagram"
+              >
+                <Instagram size={18} />
+              </a>
+            </div>
           </div>
 
           {/* Credits */}

@@ -3,9 +3,10 @@ import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { MessageCircle, Instagram, Phone } from 'lucide-react';
+import { MessageCircle, Instagram, Mail, Phone } from 'lucide-react';
 
 const WHATSAPP_NUMBER = '5511915103864';
+const CONTACT_EMAIL = 'comercia@proverbiosturismo.com.br';
 
 export default function Contact() {
   const { ref, isVisible } = useScrollReveal();
@@ -35,6 +36,14 @@ export default function Contact() {
               Preencha o formulário e entraremos em contato pelo WhatsApp para montar
               o roteiro perfeito para você.
             </p>
+
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="inline-flex items-center gap-2 text-foreground/80 hover:text-accent transition-colors mb-8"
+            >
+              <Mail size={18} />
+              <span>{CONTACT_EMAIL}</span>
+            </a>
 
             <div className="flex gap-4">
               <a
