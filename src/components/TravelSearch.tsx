@@ -1,13 +1,43 @@
-import { createElement, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 
 const ONERTRAVEL_WIDGET_SCRIPT =
   'https://static.onertravel.com/widget/search/production/widget-befly.js';
+const ONERTRAVEL_WIDGET_STYLES =
+  'https://static.onertravel.com/widget/search/production/styles.css';
 
 export default function TravelSearch() {
   const { ref, isVisible } = useScrollReveal();
+  const widgetHostRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    const host = widgetHostRef.current;
+    if (!host) {
+      return;
+    }
+
+    const shadowRoot = host.shadowRoot ?? host.attachShadow({ mode: 'open' });
+
+    if (!shadowRoot.querySelector('link[data-onertravel-styles="true"]')) {
+      const stylesLink = document.createElement('link');
+      stylesLink.rel = 'stylesheet';
+      stylesLink.href = ONERTRAVEL_WIDGET_STYLES;
+      stylesLink.dataset.onertravelStyles = 'true';
+      shadowRoot.appendChild(stylesLink);
+    }
+
+    if (!shadowRoot.querySelector('#wrapper')) {
+      const wrapper = document.createElement('div');
+      wrapper.id = 'wrapper';
+
+      const widget = document.createElement('befly-widget');
+      widget.setAttribute('language', 'pt-br');
+      widget.setAttribute('new-tab', 'true');
+
+      wrapper.appendChild(widget);
+      shadowRoot.appendChild(wrapper);
+    }
+
     const existingScript = document.querySelector(
       'script[data-onertravel-widget="true"]',
     );
@@ -51,12 +81,7 @@ export default function TravelSearch() {
           }`}
           style={{ animationDelay: '0.2s' }}
         >
-          <div id="wrapper">
-            {createElement('befly-widget', {
-              language: 'pt-br',
-              'new-tab': 'true',
-            })}
-          </div>
+          <div ref={widgetHostRef} />
         </div>
       </div>
     </section>
