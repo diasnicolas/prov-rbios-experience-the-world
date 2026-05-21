@@ -4,8 +4,8 @@ import logo from '@/assets/logo.png';
 import { MapPin, ArrowDown } from 'lucide-react';
 
 export default function Hero() {
-  const scrollToContact = () => {
-    document.querySelector('#contato')?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToTravelSearch = () => {
+    document.querySelector('#encontre-viagem')?.scrollIntoView({ behavior: 'smooth' });
   };
   const scrollToAbout = () => {
     document.querySelector('#sobre')?.scrollIntoView({ behavior: 'smooth' });
@@ -53,7 +53,7 @@ export default function Hero() {
           className="flex flex-col sm:flex-row gap-4 justify-center items-center opacity-0 animate-fade-up"
           style={{ animationDelay: '0.7s' }}
         >
-          <Button variant="hero" size="lg" onClick={scrollToContact} className="text-base px-8 py-6 rounded-full">
+          <Button variant="hero" size="lg" onClick={scrollToTravelSearch} className="text-base px-8 py-6 rounded-full">
             <MapPin className="mr-2 h-5 w-5" />
             Planejar minha viagem
           </Button>

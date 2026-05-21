@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
+import TravelSearch from '@/components/TravelSearch';
 import About from '@/components/About';
 import Differentials from '@/components/Differentials';
 import Services from '@/components/Services';
@@ -16,9 +17,11 @@ const Index = () => {
     <div className="min-h-screen overflow-x-hidden">
       <Navbar />
       <Hero />
+      
       <About />
       <Differentials />
       <Services />
+      <TravelSearch />
       <Contact />
       <Footer />
 
