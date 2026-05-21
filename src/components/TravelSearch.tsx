@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 
 const WIDGET_SRC_DOC = `<!doctype html>
@@ -30,6 +30,111 @@ const WIDGET_SRC_DOC = `<!doctype html>
 export default function TravelSearch() {
   const { ref, isVisible } = useScrollReveal();
   const iframeSrcDoc = useMemo(() => WIDGET_SRC_DOC, []);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+
+  useEffect(() => {
+    const iframe = iframeRef.current;
+    if (!iframe) {
+      return;
+    }
+
+    let resizeObserver: ResizeObserver | null = null;
+    let mutationObserver: MutationObserver | null = null;
+    let rafId: number | null = null;
+    const timeoutIds: number[] = [];
+
+    const updateHeight = () => {
+      const doc = iframe.contentDocument;
+      if (!doc) {
+        return;
+      }
+
+      const body = doc.body;
+      const html = doc.documentElement;
+      const nextHeight = Math.max(
+        body?.scrollHeight ?? 0,
+        body?.offsetHeight ?? 0,
+        html?.scrollHeight ?? 0,
+        html?.offsetHeight ?? 0,
+        420,
+      );
+
+      iframe.style.height = `${nextHeight}px`;
+    };
+
+    const scheduleHeightUpdate = () => {
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+      }
+
+      rafId = requestAnimationFrame(updateHeight);
+    };
+
+    const startObservers = () => {
+      const doc = iframe.contentDocument;
+      if (!doc) {
+        return;
+      }
+
+      scheduleHeightUpdate();
+
+      if ('ResizeObserver' in window) {
+        resizeObserver = new ResizeObserver(scheduleHeightUpdate);
+
+        if (doc.body) {
+          resizeObserver.observe(doc.body);
+        }
+
+        resizeObserver.observe(doc.documentElement);
+      }
+
+      mutationObserver = new MutationObserver(scheduleHeightUpdate);
+      mutationObserver.observe(doc.documentElement, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        characterData: true,
+      });
+
+      window.addEventListener('resize', scheduleHeightUpdate);
+
+      [150, 400, 900, 1500, 2500].forEach((delay) => {
+        const timeoutId = window.setTimeout(scheduleHeightUpdate, delay);
+        timeoutIds.push(timeoutId);
+      });
+    };
+
+    const onLoad = () => {
+      startObservers();
+    };
+
+    iframe.addEventListener('load', onLoad);
+
+    if (iframe.contentDocument?.readyState === 'complete') {
+      startObservers();
+    }
+
+    return () => {
+      iframe.removeEventListener('load', onLoad);
+      window.removeEventListener('resize', scheduleHeightUpdate);
+
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
+
+      if (mutationObserver) {
+        mutationObserver.disconnect();
+      }
+
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+      }
+
+      timeoutIds.forEach((timeoutId) => {
+        window.clearTimeout(timeoutId);
+      });
+    };
+  }, [iframeSrcDoc]);
 
   return (
     <section id="encontre-viagem" className="py-24 lg:py-32 bg-muted/30">
@@ -59,10 +164,11 @@ export default function TravelSearch() {
           style={{ animationDelay: '0.2s' }}
         >
           <iframe
+            ref={iframeRef}
             title="Buscador de viagens"
             srcDoc={iframeSrcDoc}
             loading="lazy"
-            className="w-full border-0 rounded-xl h-[780px] md:h-[720px]"
+            className="w-full border-0 rounded-xl"
             sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin"
           />
         </div>
