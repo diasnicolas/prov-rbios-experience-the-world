@@ -1,58 +1,35 @@
-import { useEffect, useRef } from 'react';
+import { useMemo } from 'react';
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 
-const ONERTRAVEL_WIDGET_SCRIPT =
-  'https://static.onertravel.com/widget/search/production/widget-befly.js';
-const ONERTRAVEL_WIDGET_STYLES =
-  'https://static.onertravel.com/widget/search/production/styles.css';
+const WIDGET_SRC_DOC = `<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://static.onertravel.com/widget/search/production/styles.css" />
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+      }
+
+      #wrapper {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <befly-widget language="pt-br" new-tab="true"></befly-widget>
+    </div>
+    <script type="text/javascript" src="https://static.onertravel.com/widget/search/production/widget-befly.js"></script>
+  </body>
+</html>`;
 
 export default function TravelSearch() {
   const { ref, isVisible } = useScrollReveal();
-  const widgetHostRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const host = widgetHostRef.current;
-    if (!host) {
-      return;
-    }
-
-    const shadowRoot = host.shadowRoot ?? host.attachShadow({ mode: 'open' });
-
-    if (!shadowRoot.querySelector('link[data-onertravel-styles="true"]')) {
-      const stylesLink = document.createElement('link');
-      stylesLink.rel = 'stylesheet';
-      stylesLink.href = ONERTRAVEL_WIDGET_STYLES;
-      stylesLink.dataset.onertravelStyles = 'true';
-      shadowRoot.appendChild(stylesLink);
-    }
-
-    if (!shadowRoot.querySelector('#wrapper')) {
-      const wrapper = document.createElement('div');
-      wrapper.id = 'wrapper';
-
-      const widget = document.createElement('befly-widget');
-      widget.setAttribute('language', 'pt-br');
-      widget.setAttribute('new-tab', 'true');
-
-      wrapper.appendChild(widget);
-      shadowRoot.appendChild(wrapper);
-    }
-
-    const existingScript = document.querySelector(
-      'script[data-onertravel-widget="true"]',
-    );
-
-    if (existingScript) {
-      return;
-    }
-
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = ONERTRAVEL_WIDGET_SCRIPT;
-    script.async = true;
-    script.dataset.onertravelWidget = 'true';
-    document.body.appendChild(script);
-  }, []);
+  const iframeSrcDoc = useMemo(() => WIDGET_SRC_DOC, []);
 
   return (
     <section id="encontre-viagem" className="py-24 lg:py-32 bg-muted/30">
@@ -81,7 +58,13 @@ export default function TravelSearch() {
           }`}
           style={{ animationDelay: '0.2s' }}
         >
-          <div ref={widgetHostRef} />
+          <iframe
+            title="Buscador de viagens"
+            srcDoc={iframeSrcDoc}
+            loading="lazy"
+            className="w-full border-0 rounded-xl h-[780px] md:h-[720px]"
+            sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin"
+          />
         </div>
       </div>
     </section>
