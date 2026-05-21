@@ -28,6 +28,67 @@ const WIDGET_SRC_DOC = `<!doctype html>
       <befly-widget language="pt-br" new-tab="true"></befly-widget>
     </div>
     <script type="text/javascript" src="https://static.onertravel.com/widget/search/production/widget-befly.js"></script>
+    <script>
+      (function () {
+        const MESSAGE_TYPE = 'onertravel-widget-height';
+        const wrapper = document.getElementById('wrapper');
+
+        if (!wrapper) {
+          return;
+        }
+
+        const notifyParent = () => {
+          const wrapperRect = wrapper.getBoundingClientRect();
+          let maxBottom = wrapperRect.top;
+
+          const allElements = wrapper.querySelectorAll('*');
+          allElements.forEach((node) => {
+            const rect = node.getBoundingClientRect();
+            if (rect.height > 0) {
+              maxBottom = Math.max(maxBottom, rect.bottom);
+            }
+          });
+
+          const measuredHeight = Math.max(
+            Math.ceil(maxBottom - wrapperRect.top),
+            Math.ceil(wrapperRect.height),
+            120,
+          );
+
+          parent.postMessage(
+            {
+              type: MESSAGE_TYPE,
+              height: measuredHeight,
+            },
+            '*',
+          );
+        };
+
+        const scheduleNotify = () => requestAnimationFrame(notifyParent);
+
+        if ('ResizeObserver' in window) {
+          const ro = new ResizeObserver(scheduleNotify);
+          ro.observe(document.documentElement);
+          ro.observe(wrapper);
+        }
+
+        const mo = new MutationObserver(scheduleNotify);
+        mo.observe(document.documentElement, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+          characterData: true,
+        });
+
+        window.addEventListener('load', scheduleNotify);
+        document.addEventListener('readystatechange', scheduleNotify);
+        [100, 300, 700, 1200, 2000].forEach((delay) => {
+          setTimeout(scheduleNotify, delay);
+        });
+
+        scheduleNotify();
+      })();
+    </script>
   </body>
 </html>`;
 
@@ -42,115 +103,29 @@ export default function TravelSearch() {
       return;
     }
 
-    let resizeObserver: ResizeObserver | null = null;
-    let mutationObserver: MutationObserver | null = null;
-    let rafId: number | null = null;
-    const timeoutIds: number[] = [];
-
-    const updateHeight = () => {
-      const doc = iframe.contentDocument;
-      if (!doc) {
+    const onMessage = (event: MessageEvent) => {
+      if (event.source !== iframe.contentWindow) {
         return;
       }
 
-      const wrapper = doc.getElementById('wrapper');
-      const widgetElement = wrapper?.firstElementChild as HTMLElement | null;
-      const body = doc.body;
-      const html = doc.documentElement;
-      let nextHeight = Math.max(
-        widgetElement?.getBoundingClientRect().height ?? 0,
-        wrapper?.scrollHeight ?? 0,
-        wrapper?.offsetHeight ?? 0,
-      );
-
-      // Fallback in case widget has not painted yet.
-      if (nextHeight < 120) {
-        nextHeight = Math.max(
-          body?.scrollHeight ?? 0,
-          body?.offsetHeight ?? 0,
-          html?.scrollHeight ?? 0,
-          html?.offsetHeight ?? 0,
-        );
-      }
-
-      nextHeight = Math.max(Math.ceil(nextHeight), 120);
-
-      iframe.style.height = `${nextHeight}px`;
-    };
-
-    const scheduleHeightUpdate = () => {
-      if (rafId !== null) {
-        cancelAnimationFrame(rafId);
-      }
-
-      rafId = requestAnimationFrame(updateHeight);
-    };
-
-    const startObservers = () => {
-      const doc = iframe.contentDocument;
-      if (!doc) {
+      const data = event.data as { type?: string; height?: number };
+      if (data?.type !== 'onertravel-widget-height' || typeof data.height !== 'number') {
         return;
       }
 
-      scheduleHeightUpdate();
-
-      if ('ResizeObserver' in window) {
-        resizeObserver = new ResizeObserver(scheduleHeightUpdate);
-
-        if (doc.body) {
-          resizeObserver.observe(doc.body);
-        }
-
-        resizeObserver.observe(doc.documentElement);
-      }
-
-      mutationObserver = new MutationObserver(scheduleHeightUpdate);
-      mutationObserver.observe(doc.documentElement, {
-        childList: true,
-        subtree: true,
-        attributes: true,
-        characterData: true,
-      });
-
-      window.addEventListener('resize', scheduleHeightUpdate);
-
-      [150, 400, 900, 1500, 2500].forEach((delay) => {
-        const timeoutId = window.setTimeout(scheduleHeightUpdate, delay);
-        timeoutIds.push(timeoutId);
-      });
+      const safeHeight = Math.max(120, Math.ceil(data.height));
+      iframe.style.height = `${safeHeight}px`;
     };
 
-    const onLoad = () => {
-      startObservers();
-    };
+    // Initial fallback while widget scripts are loading inside iframe.
+    iframe.style.height = '220px';
 
-    iframe.addEventListener('load', onLoad);
-
-    if (iframe.contentDocument?.readyState === 'complete') {
-      startObservers();
-    }
+    window.addEventListener('message', onMessage);
 
     return () => {
-      iframe.removeEventListener('load', onLoad);
-      window.removeEventListener('resize', scheduleHeightUpdate);
-
-      if (resizeObserver) {
-        resizeObserver.disconnect();
-      }
-
-      if (mutationObserver) {
-        mutationObserver.disconnect();
-      }
-
-      if (rafId !== null) {
-        cancelAnimationFrame(rafId);
-      }
-
-      timeoutIds.forEach((timeoutId) => {
-        window.clearTimeout(timeoutId);
-      });
+      window.removeEventListener('message', onMessage);
     };
-  }, [iframeSrcDoc]);
+  }, []);
 
   return (
     <section id="encontre-viagem" className="py-24 lg:py-32 bg-muted/30">
@@ -184,7 +159,7 @@ export default function TravelSearch() {
             title="Buscador de viagens"
             srcDoc={iframeSrcDoc}
             loading="lazy"
-            className="w-full border-0 rounded-xl"
+            className="w-full border-0 rounded-xl block"
             sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin"
           />
         </div>
