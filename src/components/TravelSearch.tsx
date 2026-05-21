@@ -12,10 +12,14 @@ const WIDGET_SRC_DOC = `<!doctype html>
         margin: 0;
         padding: 0;
         background: transparent;
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: hidden;
       }
 
       #wrapper {
         width: 100%;
+        min-height: 0 !important;
       }
     </style>
   </head>
@@ -49,15 +53,27 @@ export default function TravelSearch() {
         return;
       }
 
+      const wrapper = doc.getElementById('wrapper');
+      const widgetElement = wrapper?.firstElementChild as HTMLElement | null;
       const body = doc.body;
       const html = doc.documentElement;
-      const nextHeight = Math.max(
-        body?.scrollHeight ?? 0,
-        body?.offsetHeight ?? 0,
-        html?.scrollHeight ?? 0,
-        html?.offsetHeight ?? 0,
-        420,
+      let nextHeight = Math.max(
+        widgetElement?.getBoundingClientRect().height ?? 0,
+        wrapper?.scrollHeight ?? 0,
+        wrapper?.offsetHeight ?? 0,
       );
+
+      // Fallback in case widget has not painted yet.
+      if (nextHeight < 120) {
+        nextHeight = Math.max(
+          body?.scrollHeight ?? 0,
+          body?.offsetHeight ?? 0,
+          html?.scrollHeight ?? 0,
+          html?.offsetHeight ?? 0,
+        );
+      }
+
+      nextHeight = Math.max(Math.ceil(nextHeight), 120);
 
       iframe.style.height = `${nextHeight}px`;
     };
