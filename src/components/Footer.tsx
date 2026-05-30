@@ -1,4 +1,4 @@
-import logo from '@/assets/logo.png';
+import logo from '@/assets/logo.jpeg';
 import logoCadastur from '@/assets/logoCadastur.png';
 import { Instagram, Phone } from 'lucide-react';
 
@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Logo + CNPJ */}
           <div className="flex flex-col items-center md:items-start gap-3">
-            <img src={logo} alt="Provérbios Turismo" className="h-12 w-auto" />
+            <img src={logo} alt="Provérbios Turismo" className="h-12 w-12 rounded-full object-cover" />
             <p className="text-primary-foreground/50 text-xs">
               CNPJ: 14.001.337/0001-28
             </p>

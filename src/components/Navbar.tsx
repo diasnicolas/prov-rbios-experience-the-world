@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import logo from '@/assets/logo.png';
+import logo from '@/assets/logo.jpeg';
 
 const navItems = [
   { label: 'Início', href: '#inicio' },
@@ -36,7 +36,7 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto section-padding flex items-center justify-between">
         <a href="#inicio" className="flex items-center gap-2">
-          <img src={logo} alt="Provérbios Turismo" className="h-14 sm:h-16 w-auto" />
+          <img src={logo} alt="Provérbios Turismo" className="h-14 w-14 sm:h-16 sm:w-16 rounded-full object-cover" />
         </a>
 
         {/* Desktop */}

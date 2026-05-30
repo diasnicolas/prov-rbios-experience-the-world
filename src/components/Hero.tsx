@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import heroBg from '@/assets/hero-bg.jpg';
-import logo from '@/assets/logo.png';
+import logo from '@/assets/logo.jpeg';
 import { MapPin, ArrowDown } from 'lucide-react';
 
 export default function Hero() {
@@ -32,7 +32,7 @@ export default function Hero() {
         <img
           src={logo}
           alt="Provérbios Turismo"
-          className="h-32 sm:h-44 w-auto mx-auto mb-8 opacity-0 animate-fade-in"
+          className="h-32 w-32 sm:h-44 sm:w-44 rounded-full object-cover mx-auto mb-8 opacity-0 animate-fade-in"
           style={{ animationDelay: '0.1s' }}
         />
         <h1
